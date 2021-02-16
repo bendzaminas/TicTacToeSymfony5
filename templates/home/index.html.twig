@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TicTacToe{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm align-middle text-center">
+                <h1 class="title">Tic Tac Toe</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 align-middle text-center">
+                <div class="alert" role="alert" id="winner"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table" data-finished="false">
+                    <tr class="table-row first-row">
+                        <td class="align-middle text-center" data-y=0 data-x=0 data-unit=""></td>
+                        <td class="align-middle text-center middle-table-td" data-y=0 data-x=1
+                            data-unit=""></td>
+                        <td class="align-middle text-center" data-x=2 data-y=0 data-unit=""></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="align-middle text-center" data-y=1 data-x=0 data-unit=""></td>
+                        <td class="align-middle text-center middle-table-td" data-y=1 data-x=1
+                            data-unit=""></td>
+                        <td class="align-middle text-center" data-y=1 data-x=2 data-unit=""></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="align-middle text-center" data-y=2 data-x=0 data-unit=""></td>
+                        <td class="align-middle text-center middle-table-td" data-y=2 data-x=1
+                            data-unit=""></td>
+                        <td class="align-middle text-center" data-y=2 data-x=2 data-unit=""></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 align-middle text-center">
+                <button class="btn btn-outline-dark reset">Reset</button>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('assets/js/main.js') }}"></script>
+{% endblock %}
