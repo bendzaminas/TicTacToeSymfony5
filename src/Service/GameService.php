@@ -44,33 +44,22 @@ class GameService
             $this->checkDiagonal(array_reverse($board), $player)
         ) ?: false;
     }
-
-    private function boardMarksCount(array $board): int
-    {
-        $marksCount = null;
-        foreach ($board as $row) {
-            $marksCount += count(array_filter($row, function ($cell) {
-                return !empty(trim($cell));
-            }));
-        }
-        return $marksCount;
-    }
-
-    private function isLastMove(array $board): bool
-    {
-        return $this->boardMarksCount($board) > self::BOARD_SIZE ** 2 - 1;
-    }
-
-    private function botMove(array $board): array
+    public function getEmptyCells($board): array
     {
         $emptyCells = [];
         foreach ($board as $y => $row) {
             $rowKeys = array_keys($row, '');
             foreach ($rowKeys as $cell) {
-                array_push($emptyCells, ['y' => $y, 'x' => $cell, 'unit' => self::BOT_UNIT]);
+                array_push($emptyCells, ['y' => $y, 'x' => $cell]);
             }
         }
-        $botMove = $emptyCells[array_rand($emptyCells)];
+        return $emptyCells;
+    }
+
+    private function botMove(array $board): array
+    {
+        $emptyCells = $this->getEmptyCells($board);
+        $botMove = $emptyCells[array_rand($emptyCells)] + ['unit' => self::BOT_UNIT];
         return $botMove;
     }
 
@@ -86,7 +75,7 @@ class GameService
             ];
         }
         // empty cells left?
-        if ($this->isLastMove($board) === true) {
+        if (count($this->getEmptyCells($board)) <1) {
             return [
                 'draw' => true,
                 'botMove' => [],

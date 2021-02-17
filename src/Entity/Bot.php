@@ -2,18 +2,18 @@
 
 namespace App\Entity;
 
-class Bot
+class Bot implements PlayerInterface
 {
-    /*
-     * @var string
-     */
-    public const PLAYER_UNIT = 'o';
+    public const UNIT = 'o';
 
-    /*
-     * @return string
-     */
     public function getUnit(): string
     {
-        return self::PLAYER_UNIT;
+        return self::UNIT;
+    }
+
+    public function move(object $board): array
+    {
+        $emptyCells = $board->getEmptyCells();
+        return $emptyCells[array_rand($emptyCells)] + ['unit' => self::UNIT];
     }
 }
